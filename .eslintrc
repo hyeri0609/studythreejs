@@ -6,6 +6,6 @@
     'root': true,
     'extends': 'eslint:recommended',
     'globals': {
-        'BABYLON': true
+        'THREE': true
     }
 }
