@@ -1,6 +1,16 @@
-var gulp = require('gulp'), webserver = require('gulp-webserver');
-gulp.task('default', function() {
-  // place code for your default task here
+var gulp = require('gulp'), 
+gutil = require('gulp-util'),
+mocha = require('gulp-mocha'),
+webserver = require('gulp-webserver');
+
+gulp.task('watch', function() {
+  gulp.watch(['js/**', 'test/**'], ['mocha']);
+});
+
+gulp.task('mocha', function() {
+    return gulp.src(['test/*.js'], { read: false })
+        .pipe(mocha({ reporter: 'list' }))
+        .on('error', gutil.log);
 });
 
 gulp.task('webserver', function() {
@@ -14,5 +24,7 @@ gulp.task('webserver', function() {
     }));
 });
 
-gulp.task('default', ['webserver']);
-gulp.task('ws', ['webserver']);
+gulp.task('tws', ['mocha','webserver']);
+
+gulp.task('ws', ['watch','webserver']);
+
